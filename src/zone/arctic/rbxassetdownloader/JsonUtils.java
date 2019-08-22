@@ -106,10 +106,10 @@ public class JsonUtils {
     
     public static String formatHtml(String input){ 
         try {
-            return java.net.URLEncoder.encode(input, "UTF-8").replace("+", " ").replace("%3A", "-");
-        } catch (UnsupportedEncodingException ex) {}
+            return java.net.URLEncoder.encode(input, "UTF-8").replace("\"", "'").replace(":", "-").replace("*", "").replace("/", "").replace("\\", "").replace("<", "").replace(">", "").replace("?", "").replace("|", "");
+        } catch (Exception ex) {}
         
-        return "";
+        return input.replace("\"", "'").replace(":", "-").replace("*", "").replace("/", "").replace("\\", "").replace("<", "").replace(">", "").replace("?", "").replace("|", "");
     }
     
     public static String assetTypeIdToString(int inputId) {

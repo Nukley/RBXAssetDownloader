@@ -28,6 +28,7 @@ public class MainApp {
     public static boolean booleanUseUserFolders;
     public static boolean booleanDownloadAllVersions;
     public static boolean booleanOnlyFirstVersion;
+	public static boolean booleanIDs;
     public static boolean booleanDates;
     
     //Set download folder name
@@ -47,6 +48,9 @@ public class MainApp {
         //Grab all versions of assets
         booleanDownloadAllVersions = Validator.getYN(sc, "Download all versions of assets? **NOT RECOMMENDED FOR MASS DOWNLOADS...** (y/n): ");
         
+		//Grab ids
+		booleanIDs = Validator.getYN(sc, "Write ids in filenames? (y/n): ");
+		
         //Grab dates
         booleanDates = Validator.getYN(sc, "Write dates in filenames? (y/n): ");
         
@@ -110,23 +114,27 @@ public class MainApp {
                     }
                     String stringDateFirst = "";
                     String stringDateLast = "";
+					String getID = "";
                     if (booleanDates==true) {
                         stringDateFirst = " (" + details[4] + ")";
                         stringDateLast = " (" + details[5] + ")";
                     }
+					 if (booleanIDs) {
+					 getID = "(" + details[2] + ") ";
+					 }
                     if (booleanUseUserFolders==true) {
                         if (booleanDownloadAllVersions==false) {
                             if (booleanOnlyFirstVersion==false) {
                                 copyURLToFile(
                                         new URL("http://assetgame.roblox.com/asset/?id=" + i), 
-                                        new File(folderName + "/" + details[6] + "/" + details[3] + "/" + details[1] + stringDateLast + stringExtension)
+                                        new File(folderName + "/" + details[6].trim() + "/" + details[3] + "/" + getID + details[1] + stringDateLast + stringExtension)
                                         //       downloads     /    username      /    type          /    name         date             .extension
                                 );
                             }
                             if (booleanOnlyFirstVersion==true) {
                                 copyURLToFile(
                                         new URL("http://assetgame.roblox.com/asset/?id=" + i + "&version=1"), 
-                                        new File(folderName + "/" + details[6] + "/" + details[3] + "/" + details[1] + " (v1)" + stringDateFirst + stringExtension)
+                                        new File(folderName + "/" + details[6].trim() + "/" + details[3] + "/" + getID + details[1] + " (v1)" + stringDateFirst + stringExtension)
                                         //       downloads     /    username      /    type          /    name           (v1)    date              .extension
                                 );
                             }
@@ -138,14 +146,14 @@ public class MainApp {
                                     if (version==1) {
                                         copyURLToFile(
                                             new URL("http://assetgame.roblox.com/asset/?id=" + i + "&version=" + version), 
-                                            new File(folderName + "/" + details[6] + "/" + details[3] + "/" + details[1] + " (v" + version + ")" + stringDateFirst + stringExtension)
+                                            new File(folderName + "/" + details[6].trim() + "/" + details[3] + "/" + getID + details[1] + " (v" + version + ")" + stringDateFirst + stringExtension)
                                             //       downloads     /    username      /    type          /    name           (v     1          )   date              .extension
                                         );
                                     }
                                     else {
                                         copyURLToFile(
                                             new URL("http://assetgame.roblox.com/asset/?id=" + i + "&version=" + version), 
-                                            new File(folderName + "/" + details[6] + "/" + details[3] + "/" + details[1] + " (v" + version + ")" + stringExtension)
+                                            new File(folderName + "/" + details[6].trim() + "/" + details[3] + "/" + getID + details[1] + " (v" + version + ")" + stringExtension)
                                             //       downloads     /    username      /    type          /    name           (v     1          )    .extension
                                         );
                                     }
@@ -159,14 +167,14 @@ public class MainApp {
                             if (booleanOnlyFirstVersion==false) {
                                 copyURLToFile(
                                         new URL("http://assetgame.roblox.com/asset/?id=" + i), 
-                                        new File(folderName + "/" + details[3] + "/" + details[1] + " by " + details[6] + stringDateLast + stringExtension)
+                                        new File(folderName + "/" + details[3] + "/" + getID + details[1] + " by " + details[6].trim() + stringDateLast + stringExtension)
                                         //       downloads     /    type          /    name           by     username     date             .extension
                                 );
                             }
                             if (booleanOnlyFirstVersion==true) {
                                 copyURLToFile(
                                         new URL("http://assetgame.roblox.com/asset/?id=" + i + "&version=1"), 
-                                        new File(folderName + "/" + details[3] + "/" + details[1] + " by " + details[6] + stringDateFirst + stringExtension)
+                                        new File(folderName + "/" + details[3] + "/" + getID + details[1] + " by " + details[6].trim() + stringDateFirst + stringExtension)
                                         //       downloads     /    type          /    name           by     username     date              .extension
                                 );
                             }
@@ -178,14 +186,14 @@ public class MainApp {
                                     if (version==1) {
                                         copyURLToFile(
                                             new URL("http://assetgame.roblox.com/asset/?id=" + i + "&version=" + version), 
-                                            new File(folderName + "/" + details[3] + "/" + details[1] + " by " + details[6] + " (v" + version + ")" + stringDateFirst + stringExtension)
+                                            new File(folderName + "/" + details[3] + "/" + getID + details[1] + " by " + details[6].trim() + " (v" + version + ")" + stringDateFirst + stringExtension)
                                             //       downloads     /    type          /    name           by     username       (v     1          )   date              .extension
                                         );
                                     } 
                                     else {
                                         copyURLToFile(
                                             new URL("http://assetgame.roblox.com/asset/?id=" + i + "&version=" + version), 
-                                            new File(folderName + "/" + details[3] + "/" + details[1] + " by " + details[6] + " (v" + version + ")" + stringExtension)
+                                            new File(folderName + "/" + details[3] + "/" + getID + details[1] + " by " + details[6].trim() + " (v" + version + ")" + stringExtension)
                                             //       downloads     /    type          /    name           by     username       (v     1          )    .extension
                                         );
                                     }
